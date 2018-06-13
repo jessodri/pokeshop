@@ -1,17 +1,3 @@
-
-
-// Create pokemon item/card
-/* Structure of card
-<li class="collection-item avatar">
-    <img src="images/yuna.jpg" alt="" class="circle">
-    <span class="title">Title</span>
-    <p>First Line <br>
-        Second Line
-    </p>
-    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-</li>
-*/
-
 const pokeCollection = document.querySelector('.collection');
 const uri = 'http://localhost:3000'
 
@@ -39,10 +25,10 @@ function createPokeCard(pokemon) {
     li.classList.add('avatar');
     li.dataset.id = pokemon._id;
 
-    let thumb = document.createElement('IMG')
-    thumb.classList.add('circle')
-    thumb.src = 'https://vignette.wikia.nocookie.net/pokemon/images/4/46/Raichu.jpg/revision/latest?cb=20100224063009';
-    li.appendChild(thumb)
+    let thumb = document.createElement('IMG');
+    thumb.classList.add('circle');
+    thumb.src = pokemon.sprite;
+    li.appendChild(thumb);
 
     let name = document.createElement('span');
     name.classList.add('title');
@@ -92,26 +78,31 @@ async function deleteRecord(pokemonID) {
 }
 
 // Form to add pokemon
+
+// Initialize dropdown function
+const selection = document.querySelector('select');
+
+document.addEventListener('DOMContentLoaded', function () {
+    const instances = M.FormSelect.init(selection, {});
+});
+
 const form = document.querySelector('form');
 form.addEventListener('submit', submitPokemon)
 
 function submitPokemon(e) {
 
     e.preventDefault()
+    selection.classList.add('selected');
     const form = e.target.elements
     const name = form.name.value
-    const species = form.species.value
-    const type = form.type.value
+    const species = document.querySelector('.selected').innerText;
 
     const CP = form.CP.value
     const price = form.price.value*100
 
-
-
     const pokemon = {
         name,
         species,
-        type,
         CP,
         price
     }
@@ -139,3 +130,167 @@ async function postPokemon(pokemon) {
     const newPokemon = await response.json()
     return newPokemon
 }
+
+function createDropdownList(array) {
+    for (let h = 0; h < array.length; h++) {
+        let option = document.createElement('option');
+        option.textContent = array[h];
+        option.setAttribute("value", h+1);
+        selection.appendChild(option);
+    };
+};
+
+const pokeTypes = [
+    "Bulbasaur",
+    "Ivysaur",
+    "Venusaur",
+    "Charmander",
+    "Charmeleon",
+    "Charizard",
+    "Squirtle",
+    "Wartortle",
+    "Blastoise",
+    "Caterpie",
+    "Metapod",
+    "Butterfree",
+    "Weedle",
+    "Kakuna",
+    "Beedrill",
+    "Pidgey",
+    "Pidgeotto",
+    "Pidgeot",
+    "Rattata",
+    "Raticate",
+    "Spearow",
+    "Fearow",
+    "Ekans",
+    "Arbok",
+    "Pikachu",
+    "Raichu",
+    "Sandshrew",
+    "Sandslash",
+    "Nidoran♀",
+    "Nidorina",
+    "Nidoqueen",
+    "Nidoran♂",
+    "Nidorino",
+    "Nidoking",
+    "Clefairy",
+    "Clefable",
+    "Vulpix",
+    "Ninetales",
+    "Jigglypuff",
+    "Wigglytuff",
+    "Zubat",
+    "Golbat",
+    "Oddish",
+    "Gloom",
+    "Vileplume",
+    "Paras",
+    "Parasect",
+    "Venonat",
+    "Venomoth",
+    "Diglett",
+    "Dugtrio",
+    "Meowth",
+    "Persian",
+    "Psyduck",
+    "Golduck",
+    "Mankey",
+    "Primeape",
+    "Growlithe",
+    "Arcanine",
+    "Poliwag",
+    "Poliwhirl",
+    "Poliwrath",
+    "Abra",
+    "Kadabra",
+    "Alakazam",
+    "Machop",
+    "Machoke",
+    "Machamp",
+    "Bellsprout",
+    "Weepinbell",
+    "Victreebel",
+    "Tentacool",
+    "Tentacruel",
+    "Geodude",
+    "Graveler",
+    "Golem",
+    "Ponyta",
+    "Rapidash",
+    "Slowpoke",
+    "Slowbro",
+    "Magnemite",
+    "Magneton",
+    "Farfetch’d",
+    "Doduo",
+    "Dodrio",
+    "Seel",
+    "Dewgong",
+    "Grimer",
+    "Muk",
+    "Shellder",
+    "Cloyster",
+    "Gastly",
+    "Haunter",
+    "Gengar",
+    "Onix",
+    "Drowzee",
+    "Hypno",
+    "Krabby",
+    "Kingler",
+    "Voltorb",
+    "Electrode",
+    "Exeggcute",
+    "Exeggutor",
+    "Cubone",
+    "Marowak",
+    "Hitmonlee",
+    "Hitmonchan",
+    "Lickitung",
+    "Koffing",
+    "Weezing",
+    "Rhyhorn",
+    "Rhydon",
+    "Chansey",
+    "Tangela",
+    "Kangaskhan",
+    "Horsea",
+    "Seadra",
+    "Goldeen",
+    "Seaking",
+    "Staryu",
+    "Starmie",
+    "Mr. Mime",
+    "Scyther",
+    "Jynx",
+    "Electabuzz",
+    "Magmar",
+    "Pinsir",
+    "Tauros",
+    "Magikarp",
+    "Gyarados",
+    "Lapras",
+    "Ditto",
+    "Eevee",
+    "Vaporeon",
+    "Jolteon",
+    "Flareon",
+    "Porygon",
+    "Omanyte",
+    "Omastar",
+    "Kabuto",
+    "Kabutops",
+    "Aerodactyl",
+    "Snorlax",
+    "Articuno",
+    "Zapdos",
+    "Moltres",
+    "Dratini",
+    "Dragonair",
+    "Dragonite",
+    "Mewtwo",
+    "Mew",
+].sort();
+createDropdownList(pokeTypes);
