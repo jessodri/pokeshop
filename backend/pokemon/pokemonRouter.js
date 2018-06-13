@@ -25,14 +25,13 @@ router.post('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   const id = req.params.id
-  Pokemon.findByIdAndRemove(id)
-  .then(() => {
-    res.status(204).json({
-      deleted: true
-    })
-    .catch(err => {
-      res.status(500).json({err: err.message})
-    })
-  })
+  Pokemon.findByIdAndRemove(id, function(err, pokemon){
+    if(err) { throw err; 
+    } else {
+      res.status(204).json({
+        deleted: true
+      })
+    }
+  });
 })
 module.exports = router;
