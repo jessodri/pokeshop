@@ -158,4 +158,4 @@ function form(props) {
       return <option>{pokeTypes}</option>
     }
 
-    export Form
+    export default Form;
